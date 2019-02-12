@@ -27,17 +27,20 @@ cells.forEach(cell => cell.addEventListener("click", e => {
 
 function squareInnerText(target, winArr) {
   let humanChoice = target;
-  let computerChoice = computer.makeChoice();
   humanChoice.innerText = human.sign;
   human.turn(winArr, humanChoice.id)
+  let computerChoice = computer.makeChoice();
   computer.turn(winArr, computerChoice);
   document.getElementById(String(computerChoice)).innerText = computer.sign;
 }
 
-document.getElementById("reset").addEventListener("click", clearTable);
+document.getElementById("reset").addEventListener("click", resetGame);
 
-// Reset table
+// Reset 
 
-function clearTable() {
+function resetGame() {
   cells.forEach(cell => cell.innerText = "");
+  game = new Game();
+  human = game.human;
+  computer = game.computer;
 }

@@ -30,6 +30,8 @@ class Human extends Player {
 class Computer extends Player {
   makeChoice() {
     // program will check all vacant squares and choose the first one vacant
-
+    let numcells = this.game.board.filter(el => typeof el === 'number');
+    // debugger;
+    return numcells[0];
   }
 }
