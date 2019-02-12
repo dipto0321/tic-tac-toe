@@ -50,4 +50,5 @@ function resetGame() {
   game = new Game();
   human = game.human;
   computer = game.computer;
+  cells.forEach(cell => cell.addEventListener("click", cellFunctionality));
 }
