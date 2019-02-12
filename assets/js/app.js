@@ -26,6 +26,8 @@ cells.forEach(cell => cell.addEventListener("click", e => {
 // Change the inner text of box
 
 function squareInnerText(target, winArr) {
+  // debugger;
+
   let humanChoice = target;
   humanChoice.innerText = human.sign;
   human.turn(winArr, humanChoice.id)
