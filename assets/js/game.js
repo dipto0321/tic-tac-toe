@@ -1,15 +1,21 @@
 class Game {
   constructor() {
-    this.player1 = new Player("Player 1", "X");
-    this.player2 = new Player("Player 2", "O");
-    this.cycle(this.player1, this.player2);
+    this.human = new Human("Human", "X");
+    this.computer = new Computer("Computer", "O");
+    this.cycle(this.human, this.computer);
   }
 
-  cycle(player1, player2) {
+  cycle(human, computer) {
     for (let i = 0; i < 9; i++) {
-      // 1. player1 turn
-      squareInnerText(document.getElementById(), currentPlayer, winningCombo);
-
+      // 1. human first clicks a square
+      // human.turn();
+      //a) program checks if human has won
+      //b) program checks if it's a tie 
+      // 2. Right after, computer makes a move
+      // computer.turn();
+      //a) program checks if computer has won
+      //b) program checks if it's a tie
     }
+    // if it reaches this then it's a draw
   }
 }

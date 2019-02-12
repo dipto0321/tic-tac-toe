@@ -14,20 +14,20 @@ const winningCombo = [
 let cells = [...document.getElementsByClassName("cell")];
 
 let game = new Game();
-let player1 = game.player1;
-let player2 = game.player2;
+let human = game.human;
+let computer = game.computer;
 
-// Add click functionality
+// Add click functionality for human player
 cells.forEach(cell => cell.addEventListener("click", e => {
   e.stopPropagation();
-  squareInnerText(e.target, player1, winningCombo);
+  squareInnerText(e.target, human, winningCombo);
 }));
 
 // Change the inner text of box
 
 function squareInnerText(target, player, winArr) {
   target.innerText = player.sign;
-  player.turn(target.id, winArr);
+  player.turn(winArr, target.id)
 }
 
 document.getElementById("reset").addEventListener("click", clearTable);
