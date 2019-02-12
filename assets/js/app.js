@@ -20,14 +20,18 @@ let computer = game.computer;
 // Add click functionality for human player
 cells.forEach(cell => cell.addEventListener("click", e => {
   e.stopPropagation();
-  squareInnerText(e.target, human, winningCombo);
+  squareInnerText(e.target, winningCombo);
 }));
 
 // Change the inner text of box
 
-function squareInnerText(target, player, winArr) {
-  target.innerText = player.sign;
-  player.turn(winArr, target.id)
+function squareInnerText(target, winArr) {
+  let humanChoice = target;
+  let computerChoice = computer.makeChoice();
+  humanChoice.innerText = human.sign;
+  human.turn(winArr, humanChoice.id)
+  computer.turn(winArr, computerChoice);
+  document.getElementById(String(computerChoice)).innerText = computer.sign;
 }
 
 document.getElementById("reset").addEventListener("click", clearTable);
