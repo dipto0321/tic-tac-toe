@@ -33,10 +33,12 @@ function squareInnerText(target, winArr) {
   let humanChoice = target;
   humanChoice.innerText = human.sign;
   human.turn(winArr, humanChoice.id)
-  let computerChoice = computer.makeChoice();
-  computer.turn(winArr, computerChoice);
-  document.getElementById(String(computerChoice)).innerText = computer.sign;
-  target.removeEventListener("click", cellFunctionality)
+  let computerChoice = document.getElementById(String(computer.makeChoice()));
+  computer.turn(winArr, computerChoice.id);
+  computerChoice.innerText = computer.sign;
+  humanChoice.removeEventListener("click", cellFunctionality);
+  computerChoice.removeEventListener("click", cellFunctionality);
+
 }
 
 document.getElementById("reset").addEventListener("click", resetGame);

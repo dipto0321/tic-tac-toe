@@ -11,7 +11,7 @@ class Player {
 
     this.moves.push(Number(squareID));
 
-    this.game.board[squareID] = this.sign;
+    this.game.board[Number(squareID)] = this.sign;
     // Checking if player's moves array will have any winning combination -> win
     if (checkWin(winArr, this)) console.log(this.name + "Win!");
     // If none then checking if no more empty space in the board -> draw
