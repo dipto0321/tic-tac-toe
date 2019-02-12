@@ -1,2 +1,3 @@
 # tic-tac-toe
-A simple web game
+
+by [Ryan](https://github.com/rvvergara) and [Dipto](https://github.com/dipto0321)
