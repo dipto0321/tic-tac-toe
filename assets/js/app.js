@@ -18,10 +18,12 @@ let human = game.human;
 let computer = game.computer;
 
 // Add click functionality for human player
-cells.forEach(cell => cell.addEventListener("click", e => {
+cells.forEach(cell => cell.addEventListener("click", cellFunctionality));
+
+function cellFunctionality(e) {
   e.stopPropagation();
   squareInnerText(e.target, winningCombo);
-}));
+}
 
 // Change the inner text of box
 
@@ -34,6 +36,7 @@ function squareInnerText(target, winArr) {
   let computerChoice = computer.makeChoice();
   computer.turn(winArr, computerChoice);
   document.getElementById(String(computerChoice)).innerText = computer.sign;
+  target.removeEventListener("click", cellFunctionality)
 }
 
 document.getElementById("reset").addEventListener("click", resetGame);

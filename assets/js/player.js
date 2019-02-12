@@ -13,22 +13,21 @@ class Player {
 
     this.game.board[squareID] = this.sign;
     // Checking if player's moves array will have any winning combination -> win
-    if (checkWin()) console.log(this.name + "Win!");
+    if (checkWin(winArr, this)) console.log(this.name + "Win!");
     // If none then checking if no more empty space in the board -> draw
-    if (this.game.board.every(el => typeof el === "string")) {
-      console.log("It's a draw!");
-    }
+    if (checkDraw(this)) console.log("It's a tie!")
   }
 }
 
 // win checking function
 
-function checkWin() {
-  winArr.forEach(combo => {
-    return combo.every(num => this.moves.includes(num)) === true ? true : false;
-  });
+function checkWin(winArr, player) {
+  return winArr.some(combo => combo.every(num => player.moves.includes(num)));
 }
 
+function checkDraw(player) {
+  return player.game.board.every(el => typeof el === "string") ? true : false;
+}
 
 class Human extends Player {
 
