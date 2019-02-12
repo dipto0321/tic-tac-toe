@@ -13,7 +13,7 @@ const winningCombo = [
 // Collect all cells
 let cells = [...document.getElementsByClassName("cell")];
 
-let demoPlayer = new Player("human", "X")
+let game = new Game();
 
 // Add click functionality
 cells.forEach(cell => cell.addEventListener("click", e => squareInnerText(e, demoPlayer, winningCombo)));
