@@ -8,7 +8,7 @@ class Game {
   cycle(player1, player2) {
     for (let i = 0; i < 9; i++) {
       // 1. player1 turn
-      player1.turn();
+
       // 2. player2 turn
       // 
     }
