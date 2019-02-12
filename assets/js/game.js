@@ -8,9 +8,8 @@ class Game {
   cycle(player1, player2) {
     for (let i = 0; i < 9; i++) {
       // 1. player1 turn
+      squareInnerText(document.getElementById(), currentPlayer, winningCombo);
 
-      // 2. player2 turn
-      // 
     }
   }
 }

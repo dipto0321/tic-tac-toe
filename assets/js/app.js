@@ -15,11 +15,12 @@ let cells = [...document.getElementsByClassName("cell")];
 
 let game = new Game();
 let player1 = game.player1;
+let player2 = game.player2;
 
 // Add click functionality
 cells.forEach(cell => cell.addEventListener("click", e => {
   e.stopPropagation();
-  squareInnerText(e.target, player1, winningCombo)
+  squareInnerText(e.target, player1, winningCombo);
 }));
 
 // Change the inner text of box
