@@ -26,12 +26,12 @@ function addListenerToCells(cells) {
 
 function cellFunctionality(e) {
   e.stopPropagation();
-  squareInnerText(e.target, winningCombo);
+  gameCycle(e.target, winningCombo);
 }
 
 // Change the inner text of box
 
-function squareInnerText(target, winArr) {
+function gameCycle(target, winArr) {
   let humanChoice = target;
   humanChoice.innerText = human.sign;
   human.turn(winArr, humanChoice.id);
