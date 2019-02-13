@@ -17,8 +17,12 @@ let game = new Game();
 let human = game.human;
 let computer = game.computer;
 
+addListenerToCells(cells);
+
 // Add click functionality for human player
-cells.forEach(cell => cell.addEventListener("click", cellFunctionality));
+function addListenerToCells(cells) {
+  cells.forEach(cell => cell.addEventListener("click", cellFunctionality));
+}
 
 function cellFunctionality(e) {
   e.stopPropagation();
@@ -52,5 +56,5 @@ function resetGame() {
   game = new Game();
   human = game.human;
   computer = game.computer;
-  cells.forEach(cell => cell.addEventListener("click", cellFunctionality));
+  addListenerToCells(cells);
 }

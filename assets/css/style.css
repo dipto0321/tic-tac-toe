@@ -33,8 +33,11 @@ table tr td:last-child {
   border-right: 0;
 }
 
-.endgame {
+.d-none {
   display: none;
+}
+
+.endgame {
   width: 200px;
   top: 120px;
   background-color: rgba(205, 133, 63, 0.8);
