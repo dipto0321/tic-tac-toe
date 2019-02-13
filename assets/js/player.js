@@ -6,9 +6,9 @@ class Player {
     this.game = game;
   }
   turn(winArr, squareID) {
-    // Player choosing a square
-    // Whatever square the player chooses will be pushed into his moves array
+    // Push square id into the player's moves array
     this.moves.push(Number(squareID));
+    // change the board's text in that particular index into the player's sign
     this.game.board[Number(squareID)] = this.sign;
   }
 }
@@ -17,7 +17,6 @@ class Computer extends Player {
   makeChoice() {
     // program will check all vacant squares and choose the first one vacant
     let numcells = this.game.board.filter(el => typeof el === "number");
-    // debugger;
     return numcells[0];
   }
 }

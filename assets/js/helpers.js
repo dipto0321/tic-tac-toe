@@ -34,7 +34,7 @@ function playerTurn(winArr, target, player) {
   playerChoice.removeEventListener("click", cellFunctionality);
 }
 
-// Reset
+// Reset game 
 function resetGame() {
   cells.forEach(cell => (cell.innerText = ""));
   game = new Game();
@@ -57,7 +57,6 @@ function endGame(winArr, p1, p2) {
 }
 
 // win checking function
-
 function checkWin(winArr, player) {
   return winArr.some(combo => combo.every(num => player.moves.includes(num)));
 }
