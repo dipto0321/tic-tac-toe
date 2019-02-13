@@ -8,14 +8,8 @@ class Player {
   turn(winArr, squareID) {
     // Player choosing a square
     // Whatever square the player chooses will be pushed into his moves array
-
     this.moves.push(Number(squareID));
-
     this.game.board[Number(squareID)] = this.sign;
-    // Checking if player's moves array will have any winning combination -> win
-    if (checkWin(winArr, this)) console.log(this.name + "Win!");
-    // If none then checking if no more empty space in the board -> draw
-    if (checkDraw(this)) console.log("It's a tie!");
   }
 }
 

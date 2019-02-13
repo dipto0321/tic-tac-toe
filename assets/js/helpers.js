@@ -20,6 +20,7 @@ function gameCycle(target, winArr) {
   if (checkWin(winArr, computer) || checkWin(winArr, human)) {
     cells.forEach(cell => cell.removeEventListener("click", cellFunctionality));
   }
+  endGame(winArr, human, computer);
 }
 
 function playerTurn(winArr, target, player) {
@@ -40,4 +41,17 @@ function resetGame() {
   human = game.human;
   computer = game.computer;
   addListenerToCells(cells);
+  let endGameDiv = document.getElementById("endgame");
+  endGameDiv.setAttribute("class", "d-none");
+  endGame.innerText = "";
+}
+
+// End game
+function endGame(winArr, p1, p2) {
+  if (checkWin(winArr, p1) || checkWin(winArr, p2) || checkDraw(p1)) {
+    let endGameDiv = document.getElementById("endgame");
+    endGameDiv.removeAttribute("class");
+
+    endGameDiv.innerText = checkDraw(p1) ? "It's a tie" : checkWin(winArr, p1) ? `${p1.name} Wins!` : `${p2.name} Wins!`;
+  }
 }
