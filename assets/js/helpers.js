@@ -55,3 +55,13 @@ function endGame(winArr, p1, p2) {
     endGameDiv.innerText = checkDraw(p1) ? "It's a tie" : checkWin(winArr, p1) ? `${p1.name} Wins!` : `${p2.name} Wins!`;
   }
 }
+
+// win checking function
+
+function checkWin(winArr, player) {
+  return winArr.some(combo => combo.every(num => player.moves.includes(num)));
+}
+
+function checkDraw(player) {
+  return player.game.board.every(el => typeof el === "string") ? true : false;
+}

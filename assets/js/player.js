@@ -13,16 +13,6 @@ class Player {
   }
 }
 
-// win checking function
-
-function checkWin(winArr, player) {
-  return winArr.some(combo => combo.every(num => player.moves.includes(num)));
-}
-
-function checkDraw(player) {
-  return player.game.board.every(el => typeof el === "string") ? true : false;
-}
-
 class Human extends Player {}
 
 class Computer extends Player {
