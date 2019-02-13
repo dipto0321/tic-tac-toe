@@ -13,7 +13,7 @@ function gameCycle(target, winArr) {
   // First human chooses a square
   playerTurn(winArr, target, human);
   // If game isn't a draw then the computer will choose a square
-  if (!checkDraw(computer)) {
+  if (!checkDraw()) {
     playerTurn(winArr, target, computer);
   }
   // If either player wins, remove all click functionality from remaining cells
@@ -48,11 +48,11 @@ function resetGame() {
 
 // End game
 function endGame(winArr, p1, p2) {
-  if (checkWin(winArr, p1) || checkWin(winArr, p2) || checkDraw(p1)) {
+  if (checkWin(winArr, p1) || checkWin(winArr, p2) || checkDraw()) {
     let endGameDiv = document.getElementById("endgame");
     endGameDiv.removeAttribute("class");
 
-    endGameDiv.innerText = checkDraw(p1) ? "It's a tie" : checkWin(winArr, p1) ? `${p1.name} Wins!` : `${p2.name} Wins!`;
+    endGameDiv.innerText = checkDraw() ? "It's a tie" : checkWin(winArr, p1) ? `${p1.name} Wins!` : `${p2.name} Wins!`;
   }
 }
 
@@ -62,6 +62,6 @@ function checkWin(winArr, player) {
   return winArr.some(combo => combo.every(num => player.moves.includes(num)));
 }
 
-function checkDraw(player) {
-  return player.game.board.every(el => typeof el === "string") ? true : false;
+function checkDraw() {
+  return game.board.every(el => typeof el === "string") ? true : false;
 }
