@@ -8,7 +8,7 @@ const winningCombo = [
   [2, 5, 8],
   [0, 4, 8],
   [6, 4, 2]
-]
+];
 
 // Collect all cells
 let cells = [...document.getElementsByClassName("cell")];
@@ -28,25 +28,27 @@ function cellFunctionality(e) {
 // Change the inner text of box
 
 function squareInnerText(target, winArr) {
-  // debugger;
-
   let humanChoice = target;
   humanChoice.innerText = human.sign;
-  human.turn(winArr, humanChoice.id)
-  let computerChoice = document.getElementById(String(computer.makeChoice()));
-  computer.turn(winArr, computerChoice.id);
-  computerChoice.innerText = computer.sign;
+  human.turn(winArr, humanChoice.id);
   humanChoice.removeEventListener("click", cellFunctionality);
-  computerChoice.removeEventListener("click", cellFunctionality);
-
+  if (!checkDraw(computer)) {
+    let computerChoice = document.getElementById(String(computer.makeChoice()));
+    computer.turn(winArr, computerChoice.id);
+    computerChoice.innerText = computer.sign;
+    computerChoice.removeEventListener("click", cellFunctionality);
+  }
+  if (checkWin(winArr, computer) || checkWin(winArr, human)) {
+    cells.forEach(cell => cell.removeEventListener("click", cellFunctionality));
+  }
 }
 
 document.getElementById("reset").addEventListener("click", resetGame);
 
-// Reset 
+// Reset
 
 function resetGame() {
-  cells.forEach(cell => cell.innerText = "");
+  cells.forEach(cell => (cell.innerText = ""));
   game = new Game();
   human = game.human;
   computer = game.computer;
