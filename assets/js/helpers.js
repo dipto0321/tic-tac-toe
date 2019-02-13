@@ -48,11 +48,13 @@ function resetGame() {
 
 // End game
 function endGame(winArr, p1, p2) {
-  if (checkWin(winArr, p1) || checkWin(winArr, p2) || checkDraw()) {
-    let endGameDiv = document.getElementById("endgame");
+  let endGameDiv = document.getElementById("endgame");
+  if (checkWin(winArr, p1) || checkWin(winArr, p2)) {
     endGameDiv.removeAttribute("class");
-
-    endGameDiv.innerText = checkDraw() ? "It's a tie" : checkWin(winArr, p1) ? `${p1.name} Wins!` : `${p2.name} Wins!`;
+    endGameDiv.innerText = checkWin(winArr, p1) ? `${p1.name} Wins!` : `${p2.name} Wins!`;
+  } else if (checkDraw()) {
+    endGameDiv.removeAttribute("class");
+    endGameDiv.innerText = "It's a tie";
   }
 }
 
