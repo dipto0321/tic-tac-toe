@@ -15,8 +15,13 @@ class Player {
 
 class Computer extends Player {
   makeChoice() {
+    let level = document.getElementById("level").value;
     // program will check all vacant squares and choose the first one vacant
     let numcells = this.game.board.filter(el => typeof el === "number");
-    return numcells[0];
+    // return numcells[0];
+
+    // Minimax version
+    let choice = level == "easy" ? numcells[0] : minimax(winningCombo, this.game.board, this).index;
+    return choice;
   }
 }
