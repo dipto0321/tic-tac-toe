@@ -17,6 +17,13 @@ let game = new Game();
 let human = game.human;
 let computer = game.computer;
 
+for (let i = 0; i < cells.length; i++) {
+  if (typeof game.board[i] == "string") cells[i].innerText = game.board[i];
+}
+
+
 addListenerToCells(cells);
 
 document.getElementById("reset").addEventListener("click", resetGame);
+
+document.getElementById("level").addEventListener("change", changeLevel);
