@@ -1,7 +1,6 @@
 const domControls = (() => {
   return {
-
-    // Reset game 
+    // Reset game
     resetGame() {
       // Clear all cells
       cells.forEach(cell => (cell.innerText = ""));
@@ -26,23 +25,31 @@ const domControls = (() => {
     endGameMessages(p1, p2) {
       let endGameDiv = document.getElementById("endgame");
       endGameDiv.removeAttribute("class");
-      endGameDiv.innerText = game.checkDraw() ? "It's a tie" : game.checkWin(p1) ? `${p1.name} Wins!` : `${p2.name} Wins!`;
+      endGameDiv.innerText = game.checkDraw()
+        ? "It's a tie"
+        : game.checkWin(p1)
+        ? `${p1.name} Wins!`
+        : `${p2.name} Wins!`;
     },
 
     disableAllCells() {
-      cells.forEach(cell => cell.removeEventListener("click", this.cellFunctionality));
+      cells.forEach(cell =>
+        cell.removeEventListener("click", this.cellFunctionality)
+      );
     },
 
     // Add click functionality for human player
     addListenerToCells(cells) {
-      cells.forEach(cell => cell.addEventListener("click", this.cellFunctionality));
+      cells.forEach(cell =>
+        cell.addEventListener("click", this.cellFunctionality)
+      );
     },
 
     cellFunctionality(e) {
       e.stopPropagation();
       game.gameCycle(e.target, game.winningCombo);
     }
-  }
+  };
 })();
 
-// One cycle in a game means human and computer each makes a turn
+// Game related controls
