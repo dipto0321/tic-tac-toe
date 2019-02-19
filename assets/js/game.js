@@ -37,7 +37,7 @@ class Game {
 }
 
 endGame(p1, p2) {
-  if (checkWin(p1) || checkWin(p2) || checkDraw()) {
+  if (this.checkWin(p1) || this.checkWin(p2) || this.checkDraw()) {
     // Display endgame message
     endGameMessages(p1, p2);
     // Remove al click functionality from remaining cells
@@ -45,5 +45,19 @@ endGame(p1, p2) {
     return true;
   }
   return false;
+}
+
+checkWin(player) {
+  // Check each subarray of winArr if included in player's moves array
+  return this.winningCombo.some(combo => combo.every(num => player.moves.includes(num)));
+}
+
+checkDraw() {
+  // First check if there are any winners then check if all elements in the board array are strings
+  if (!this.checkWin(this.human) && !this.checkWin(this.computer)) {
+    return this.board.every(el => typeof el === "string") ? true : false;
+  } else {
+    return false;
+  }
 }
 }

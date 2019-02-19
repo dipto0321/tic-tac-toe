@@ -9,10 +9,10 @@ function minimax(player) {
   let human = game.human;
   let computer = game.computer;
   // 2. Termninal states
-  if (checkWin(human)) return {
+  if (game.checkWin(human)) return {
     score: -10
   };
-  if (checkWin(computer)) return {
+  if (game.checkWin(computer)) return {
     score: 10
   };
   if (availableSpots.length == 0) return {
