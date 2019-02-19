@@ -2,16 +2,17 @@ function emptySquares(board) {
   return board.filter(cell => typeof cell == "number");
 }
 
-function minimax(winArr, board, player) {
+function minimax(player) {
   // 1. Declare available spots
+  let board = game.board;
   let availableSpots = emptySquares(board);
   let human = game.human;
   let computer = game.computer;
   // 2. Termninal states
-  if (checkWin(winArr, human)) return {
+  if (checkWin(human)) return {
     score: -10
   };
-  if (checkWin(winArr, computer)) return {
+  if (checkWin(computer)) return {
     score: 10
   };
   if (availableSpots.length == 0) return {
@@ -29,8 +30,8 @@ function minimax(winArr, board, player) {
     board[spot] = player.sign;
     // run recursively minimax to opponent
     let result;
-    if (player === computer) result = minimax(winArr, board, human);
-    if (player === human) result = minimax(winArr, board, computer);
+    if (player === computer) result = minimax(human);
+    if (player === human) result = minimax(computer);
     move.score = result.score;
     // reset board to original state before this move
     board[spot] = move.index;

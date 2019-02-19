@@ -5,7 +5,7 @@ class Player {
     this.moves = [];
     this.game = game;
   }
-  turn(winArr, squareID) {
+  turn(squareID) {
     // Push square id into the player's moves array
     this.moves.push(Number(squareID));
     // change the board's text in that particular index into the player's sign
@@ -21,7 +21,7 @@ class Computer extends Player {
     // return numcells[0];
 
     // Minimax version
-    let choice = level == "easy" ? numcells[0] : minimax(winningCombo, this.game.board, this).index;
+    let choice = level == "easy" ? numcells[0] : minimax(this).index;
     return choice;
   }
 }
