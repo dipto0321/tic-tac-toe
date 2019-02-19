@@ -13,7 +13,7 @@ function resetGame() {
   // Remove endgame display
   let endGameDiv = document.getElementById("endgame");
   endGameDiv.setAttribute("class", "d-none");
-  endGame.innerText = "";
+  endGameDiv.innerText = "";
 }
 
 // Whenever the user selects a new level the game resets
@@ -21,17 +21,6 @@ function changeLevel() {
   resetGame();
 }
 
-// End game
-function endGame(p1, p2) {
-  if (checkWin(p1) || checkWin(p2) || checkDraw()) {
-    // Display endgame message
-    endGameMessages(p1, p2)
-    // Remove al click functionality from remaining cells
-    disableAllCells();
-    return true;
-  }
-  return false;
-}
 
 function endGameMessages(p1, p2) {
   let endGameDiv = document.getElementById("endgame");

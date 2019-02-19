@@ -19,10 +19,10 @@ class Game {
     this.playerTurn(target, this.human);
 
     // If game isn't a draw then the computer will choose a square
-    if (endGame(this.human, this.computer) === false) {
+    if (this.endGame(this.human, this.computer) === false) {
       this.playerTurn(target, this.computer);
     }
-    endGame(this.human, this.computer);
+    this.endGame(this.human, this.computer);
   }
 
   playerTurn(target, player) {
@@ -34,5 +34,16 @@ class Game {
   playerChoice.innerText = player.sign;
   // After the square is chosen remove click functionality from it
   playerChoice.removeEventListener("click", cellFunctionality);
+}
+
+endGame(p1, p2) {
+  if (checkWin(p1) || checkWin(p2) || checkDraw()) {
+    // Display endgame message
+    endGameMessages(p1, p2);
+    // Remove al click functionality from remaining cells
+    disableAllCells();
+    return true;
+  }
+  return false;
 }
 }
