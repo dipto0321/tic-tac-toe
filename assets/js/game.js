@@ -26,38 +26,38 @@ class Game {
   }
 
   playerTurn(target, player) {
-  // playerChoice will differ depending on type of player
-  let playerChoice = player === this.human ? target : document.getElementById(String(player.makeChoice()));
-  // Player makes a turn
-  player.turn(playerChoice.id);
-  // Change inner text of the chosen square into the player's sign
-  playerChoice.innerText = player.sign;
-  // After the square is chosen remove click functionality from it
-  playerChoice.removeEventListener("click", cellFunctionality);
-}
-
-endGame(p1, p2) {
-  if (this.checkWin(p1) || this.checkWin(p2) || this.checkDraw()) {
-    // Display endgame message
-    endGameMessages(p1, p2);
-    // Remove al click functionality from remaining cells
-    disableAllCells();
-    return true;
+    // playerChoice will differ depending on type of player
+    let playerChoice = player === this.human ? target : document.getElementById(String(player.makeChoice()));
+    // Player makes a turn
+    player.turn(playerChoice.id);
+    // Change inner text of the chosen square into the player's sign
+    playerChoice.innerText = player.sign;
+    // After the square is chosen remove click functionality from it
+    playerChoice.removeEventListener("click", domControls.cellFunctionality);
   }
-  return false;
-}
 
-checkWin(player) {
-  // Check each subarray of winArr if included in player's moves array
-  return this.winningCombo.some(combo => combo.every(num => player.moves.includes(num)));
-}
-
-checkDraw() {
-  // First check if there are any winners then check if all elements in the board array are strings
-  if (!this.checkWin(this.human) && !this.checkWin(this.computer)) {
-    return this.board.every(el => typeof el === "string") ? true : false;
-  } else {
+  endGame(p1, p2) {
+    if (this.checkWin(p1) || this.checkWin(p2) || this.checkDraw()) {
+      // Display endgame message
+      domControls.endGameMessages(p1, p2);
+      // Remove al click functionality from remaining cells
+      domControls.disableAllCells();
+      return true;
+    }
     return false;
   }
-}
+
+  checkWin(player) {
+    // Check each subarray of winArr if included in player's moves array
+    return this.winningCombo.some(combo => combo.every(num => player.moves.includes(num)));
+  }
+
+  checkDraw() {
+    // First check if there are any winners then check if all elements in the board array are strings
+    if (!this.checkWin(this.human) && !this.checkWin(this.computer)) {
+      return this.board.every(el => typeof el === "string") ? true : false;
+    } else {
+      return false;
+    }
+  }
 }
