@@ -1,7 +1,8 @@
 // Collect all cells
 let cells = [...document.getElementsByClassName("cell")];
 
-let game = new Game();
+let name = prompt("What's your name?");
+let game = new Game(name);
 
 cells.forEach((element, index) => {
   if (typeof game.board[index] === "string") {
