@@ -16,12 +16,23 @@ class Game {
   }
   gameCycle(target) {
     // First human chooses a square
-    playerTurn(target, this.human);
+    this.playerTurn(target, this.human);
 
     // If game isn't a draw then the computer will choose a square
     if (endGame(this.human, this.computer) === false) {
-      playerTurn(target, this.computer);
+      this.playerTurn(target, this.computer);
     }
-    endGame(game.human, this.computer);
+    endGame(this.human, this.computer);
   }
+
+  playerTurn(target, player) {
+  // playerChoice will differ depending on type of player
+  let playerChoice = player === this.human ? target : document.getElementById(String(player.makeChoice()));
+  // Player makes a turn
+  player.turn(playerChoice.id);
+  // Change inner text of the chosen square into the player's sign
+  playerChoice.innerText = player.sign;
+  // After the square is chosen remove click functionality from it
+  playerChoice.removeEventListener("click", cellFunctionality);
+}
 }
