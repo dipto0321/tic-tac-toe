@@ -14,4 +14,14 @@ class Game {
       [6, 4, 2]
     ];
   }
+  gameCycle(target) {
+    // First human chooses a square
+    playerTurn(target, this.human);
+
+    // If game isn't a draw then the computer will choose a square
+    if (endGame(this.human, this.computer) === false) {
+      playerTurn(target, this.computer);
+    }
+    endGame(game.human, this.computer);
+  }
 }

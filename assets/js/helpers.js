@@ -1,14 +1,14 @@
 // Game logic related functions
-function gameCycle(target) {
-  // First human chooses a square
-  playerTurn(target, game.human);
+// function gameCycle(target) {
+//   // First human chooses a square
+//   playerTurn(target, game.human);
 
-  // If game isn't a draw then the computer will choose a square
-  if (endGame(game.human, game.computer) === false) {
-    playerTurn(target, game.computer);
-  }
-  endGame(game.human, game.computer);
-}
+//   // If game isn't a draw then the computer will choose a square
+//   if (endGame(game.human, game.computer) === false) {
+//     playerTurn(target, game.computer);
+//   }
+//   endGame(game.human, game.computer);
+// }
 
 function playerTurn(target, player) {
   // playerChoice will differ depending on type of player
@@ -89,7 +89,7 @@ function addListenerToCells(cells) {
 
 function cellFunctionality(e) {
   e.stopPropagation();
-  gameCycle(e.target, game.winningCombo);
+  game.gameCycle(e.target, game.winningCombo);
 }
 
 // One cycle in a game means human and computer each makes a turn
