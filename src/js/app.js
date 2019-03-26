@@ -14,22 +14,6 @@
   }
 )();
 
-// Collect all cells
-let cells = [...document.getElementsByClassName("cell")];
-
-// Ask player for name
-let name = prompt("What's your name?");
-// Instantiate a new game
-let game = new Game(name);
-
-// Reflect the contents of gameBoard array into the html (for testing)
-cells.forEach((element, index) => {
-  if (typeof game.board[index] === "string") {
-    element.innerText = game.board[index];
-  }
-});
-
-
 domControls.addListenerToCells(cells);
 
 document.getElementById("reset").addEventListener("click", e => domControls.resetGame());

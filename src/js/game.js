@@ -1,7 +1,7 @@
 class Game {
-  constructor(name) {
-    this.human = new Player(name, "O", this);
-    this.computer = new Computer("Computer", "X", this);
+  constructor(name, player1, player2) {
+    this.human = ;
+    this.computer = ;
     this.board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     this.winningCombo = [
       [0, 1, 2],
@@ -14,6 +14,11 @@ class Game {
       [6, 4, 2]
     ];
   }
+
+  turn(squareID, player) {
+    this.board[Number(squareID)] = player.sign;
+  }
+
   gameCycle(target) {
     // First human chooses a square
     gameControls.playerTurn(target, this.human);
@@ -25,4 +30,6 @@ class Game {
     gameControls.endGame(this.human, this.computer);
   }
 
-}
+};
+
+export default Game;

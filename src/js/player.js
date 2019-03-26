@@ -5,6 +5,7 @@ class Player {
     this.moves = [];
     this.game = game;
   }
+
   turn(squareID) {
     // Push square id into the player's moves array
     this.moves.push(Number(squareID));
@@ -24,4 +25,9 @@ class Computer extends Player {
     let choice = level == "easy" ? numcells[0] : minimax(this).index;
     return choice;
   }
+}
+
+export {
+  Player,
+  Computer,
 }
