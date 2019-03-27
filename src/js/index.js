@@ -1,23 +1,8 @@
 import '../css/style.css';
-import Game from './game';
-import Player from './player',
-import Computer from './player';
+import GameBoard from './gameBoard';
+import Player from './player';
+import mixin from './mixins';
+import Game from './app';
+import minimax from './minimax';
 
-// Collect all cells
-let cells = [...document.getElementsByClassName("cell")];
-
-// Ask player for name
-let name = prompt("What's your name?");
-
-let player1 = new Player(name, "O", this);
-
-let player2 = new Computer("Computer", "X", this)
-// Instantiate a new game
-let game = new Game(name);
-
-// Reflect the contents of gameBoard array into the html (for testing)
-cells.forEach((element, index) => {
-  if (typeof game.board[index] === "string") {
-    element.innerText = game.board[index];
-  }
-});
+const game = Game(GameBoard, Player, mixin, minimax);

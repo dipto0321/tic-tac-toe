@@ -1,46 +1,56 @@
-function emptySquares(board) {
-  return board.filter(cell => typeof cell == "number");
-}
+const minimax = (game, player) => {
+  const {
+    board,
+    human,
+    computer,
+  } = game;
+  const availableSpots = board.emptySquares();
+  if (game.checkWin(human)) {
+    return {
+      score: -10,
+    };
+  }
+  if (game.checkWin(computer)) {
+    return {
+      score: 10,
+    };
+  }
+  if (availableSpots.length === 0) {
+    return {
+      score: 0,
+    };
+  }
 
-function minimax(player) {
-  // 1. Declare available spots
-  let board = game.board;
-  let availableSpots = emptySquares(board);
-  let human = game.human;
-  let computer = game.computer;
-  // 2. Termninal states
-  if (gameControls.checkWin(human)) return {
-    score: -10
-  };
-  if (gameControls.checkWin(computer)) return {
-    score: 10
-  };
-  if (availableSpots.length == 0) return {
-    score: 0
-  };
+  const moves = [];
 
-  // Collect all possible moves
-  let moves = [];
-  // iterate through available spots and run recursively between opponent and player to build up scores
-
-  availableSpots.forEach(spot => {
-    let move = {};
-    move.index = board[spot];
-    player.moves.push(board[spot]);
-    board[spot] = player.sign;
-    // run recursively minimax to opponent
+  availableSpots.forEach((spot) => {
+    const move = {};
+    move.index = board.grid[spot];
+    player.moves.push(board.grid[spot]);
+    board.grid[spot] = player.sign;
     let result;
-    if (player === computer) result = minimax(human);
-    if (player === human) result = minimax(computer);
+    if (player === computer) {
+      result = minimax(game, human);
+    } else if (player === human) {
+      result = minimax(game, computer);
+    }
+
     move.score = result.score;
-    // reset board to original state before this move
-    board[spot] = move.index;
+
+    board.grid[spot] = move.index;
     player.moves.pop();
     moves.push(move);
   });
-  // Find index of the best score from among the moves;
   let best;
-  if (player === computer) best = moves.sort((a, b) => b.score - a.score)[0];
-  if (player === human) best = moves.sort((a, b) => a.score - b.score)[0];
+  if (player === computer) {
+    // eslint-disable-next-line prefer-destructuring
+    best = moves.sort((a, b) => b.score - a.score)[0];
+    // eslint-disable-next-line prefer-destructuring
+  } else if (player === human) {
+    // eslint-disable-next-line prefer-destructuring
+    best = moves.sort((a, b) => a.score - b.score)[0];
+  }
   return best;
-}
+};
+
+export default minimax;
