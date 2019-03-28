@@ -142,27 +142,39 @@ eval("\nvar content = __webpack_require__(/*! !../../node_modules/css-loader/dis
 
 /***/ }),
 
-/***/ "./src/js/game.js":
-/*!************************!*\
-  !*** ./src/js/game.js ***!
-  \************************/
+/***/ "./src/js/factories/game.js":
+/*!**********************************!*\
+  !*** ./src/js/factories/game.js ***!
+  \**********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst Game = (gameArgs) => {\n  const {\n    gameBoardFactory,\n    playerFactory,\n    mixin,\n    aiFn,\n  } = gameArgs;\n  const name = prompt(`What's your name? `);\n  const board = gameBoardFactory();\n  const human = playerFactory({\n    name,\n    board,\n    sign: 'X',\n  });\n  const computer = Object.assign(playerFactory({\n    board,\n    name: 'Computer',\n    sign: 'O',\n  }), {\n    makeChoice: mixin.makeChoice,\n  });\n\n  function turn(humanChoice, level) {\n    this.human.turn(humanChoice);\n    if (!this.endGame()) {\n      const computerChoice = this.computer.makeChoice(this, level, aiFn);\n      this.computer.turn(computerChoice);\n      return computerChoice;\n    }\n  }\n\n  function checkWin(player) {\n    return board.winningCombo.some(combo => combo.every(num => player.moves.includes(num)));\n  }\n\n  function endGame() {\n    return this.checkWin(this.human) ||\n      this.checkWin(this.computer) ||\n      this.board.emptySquares().length === 0;\n  }\n\n  return {\n    human,\n    computer,\n    board,\n    turn,\n    checkWin,\n    endGame,\n  };\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (Game);\n\n//# sourceURL=webpack:///./src/js/game.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst Game = (gameArgs) => {\n  const {\n    board,\n    human,\n    computer,\n    aiFn,\n  } = gameArgs;\n\n  function turn(humanChoice, level) {\n    if (!this.endGame()) this.human.turn(humanChoice);\n    if (!this.endGame()) {\n      const computerChoice = this.computer.makeChoice(this, level, aiFn);\n      this.computer.turn(computerChoice);\n      return computerChoice;\n    }\n  }\n\n  function checkWin(player) {\n    return board.winningCombo.some(combo => combo.every(num => player.moves.includes(num)));\n  }\n\n  function endGame() {\n    return this.checkWin(this.human) ||\n      this.checkWin(this.computer) ||\n      this.board.emptySquares().length === 0;\n  }\n\n  return {\n    human,\n    computer,\n    board,\n    turn,\n    checkWin,\n    endGame,\n  };\n};\n/* harmony default export */ __webpack_exports__[\"default\"] = (Game);\n\n//# sourceURL=webpack:///./src/js/factories/game.js?");
 
 /***/ }),
 
-/***/ "./src/js/gameBoard.js":
-/*!*****************************!*\
-  !*** ./src/js/gameBoard.js ***!
-  \*****************************/
+/***/ "./src/js/factories/gameBoard.js":
+/*!***************************************!*\
+  !*** ./src/js/factories/gameBoard.js ***!
+  \***************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst GameBoard = () => ({\n  grid: [0, 1, 2, 3, 4, 5, 6, 7, 8],\n  winningCombo: [\n    [0, 1, 2],\n    [3, 4, 5],\n    [6, 7, 8],\n    [0, 3, 6],\n    [1, 4, 7],\n    [2, 5, 8],\n    [0, 4, 8],\n    [6, 4, 2],\n  ],\n  receiveChoice(target, player) {\n    this.grid[target] = player.sign;\n  },\n  emptySquares() {\n    return this.grid.filter(box => (typeof box) === 'number');\n  },\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (GameBoard);\n\n//# sourceURL=webpack:///./src/js/gameBoard.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst GameBoard = () => ({\n  grid: [0, 1, 2, 3, 4, 5, 6, 7, 8],\n  winningCombo: [\n    [0, 1, 2],\n    [3, 4, 5],\n    [6, 7, 8],\n    [0, 3, 6],\n    [1, 4, 7],\n    [2, 5, 8],\n    [0, 4, 8],\n    [6, 4, 2],\n  ],\n  receiveChoice(target, player) {\n    this.grid[target] = player.sign;\n  },\n  emptySquares() {\n    return this.grid.filter(box => (typeof box) === 'number');\n  },\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (GameBoard);\n\n//# sourceURL=webpack:///./src/js/factories/gameBoard.js?");
+
+/***/ }),
+
+/***/ "./src/js/factories/player.js":
+/*!************************************!*\
+  !*** ./src/js/factories/player.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nconst Player = playerArgs => ({\n  name: playerArgs.name,\n  sign: playerArgs.sign,\n  board: playerArgs.board,\n  moves: [],\n  turn(index) {\n    this.moves.push(index);\n    this.board.receiveChoice(index, this);\n  },\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Player);\n\n//# sourceURL=webpack:///./src/js/factories/player.js?");
 
 /***/ }),
 
@@ -174,43 +186,55 @@ eval("__webpack_require__.r(__webpack_exports__);\nconst GameBoard = () => ({\n 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/style.css */ \"./src/css/style.css\");\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_style_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./gameBoard */ \"./src/js/gameBoard.js\");\n/* harmony import */ var _player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./player */ \"./src/js/player.js\");\n/* harmony import */ var _mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mixins */ \"./src/js/mixins.js\");\n/* harmony import */ var _game__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./game */ \"./src/js/game.js\");\n/* harmony import */ var _minimax__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./minimax */ \"./src/js/minimax.js\");\n\n\n\n\n\n\n\nconst game = Object(_game__WEBPACK_IMPORTED_MODULE_4__[\"default\"])({\n  gameBoardFactory: _gameBoard__WEBPACK_IMPORTED_MODULE_1__[\"default\"],\n  playerFactory: _player__WEBPACK_IMPORTED_MODULE_2__[\"default\"],\n  aiFn: _minimax__WEBPACK_IMPORTED_MODULE_5__[\"default\"],\n  mixin: _mixins__WEBPACK_IMPORTED_MODULE_3__[\"default\"],\n});\n\nconst level = 'hard';\n\nconst mainGameBoard = document.getElementById('mainBoard');\n\nfor (let i = 0, j = 0; i < 3; i += 1, j += 3) {\n  const tr = document.createElement('tr');\n  for (let k = 0; k < 3; k += 1) {\n    const td = document.createElement('td');\n    td.setAttribute('class', 'cell');\n    td.setAttribute('id', j + k);\n    tr.appendChild(td);\n  }\n  mainGameBoard.appendChild(tr);\n};\n\n//# sourceURL=webpack:///./src/js/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../css/style.css */ \"./src/css/style.css\");\n/* harmony import */ var _css_style_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_style_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _factories_gameBoard__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./factories/gameBoard */ \"./src/js/factories/gameBoard.js\");\n/* harmony import */ var _factories_player__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./factories/player */ \"./src/js/factories/player.js\");\n/* harmony import */ var _utils_mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/mixins */ \"./src/js/utils/mixins.js\");\n/* harmony import */ var _factories_game__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./factories/game */ \"./src/js/factories/game.js\");\n/* harmony import */ var _lib_minimax__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./lib/minimax */ \"./src/js/lib/minimax.js\");\n/* harmony import */ var _utils_domUtils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/domUtils */ \"./src/js/utils/domUtils.js\");\n/* harmony import */ var _utils_callbacks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/callbacks */ \"./src/js/utils/callbacks.js\");\n\n\n\n\n\n\n\n\n\n// const name = prompt(`What's your name? `);\nconst name = \"Ryan\";\n\nconst board = Object(_factories_gameBoard__WEBPACK_IMPORTED_MODULE_1__[\"default\"])();\n\nconst human = Object(_factories_player__WEBPACK_IMPORTED_MODULE_2__[\"default\"])({\n  name,\n  board,\n  sign: 'X',\n});\n\nconst computer = Object.assign(Object(_factories_player__WEBPACK_IMPORTED_MODULE_2__[\"default\"])({\n  board,\n  name: 'Computer',\n  sign: 'O',\n}), {\n  makeChoice: _utils_mixins__WEBPACK_IMPORTED_MODULE_3__[\"default\"].makeChoice,\n});\n\nconst game = Object(_factories_game__WEBPACK_IMPORTED_MODULE_4__[\"default\"])({\n  board,\n  human,\n  computer,\n  aiFn: _lib_minimax__WEBPACK_IMPORTED_MODULE_5__[\"default\"],\n});\n\nconst level = 'easy';\n\ndocument.body.appendChild(Object(_utils_domUtils__WEBPACK_IMPORTED_MODULE_6__[\"gameBoardDisplay\"])());\n\nObject(_utils_callbacks__WEBPACK_IMPORTED_MODULE_7__[\"addBoxListeners\"])({\n  game,\n  cells: [...document.getElementsByClassName('cell')],\n  level,\n  callBack: _utils_callbacks__WEBPACK_IMPORTED_MODULE_7__[\"boxCallBack\"],\n});\n\nObject(_utils_callbacks__WEBPACK_IMPORTED_MODULE_7__[\"removeListeners\"])({\n  game,\n  cells: [...document.getElementsByClassName('cell')],\n  level,\n  callBack: _utils_callbacks__WEBPACK_IMPORTED_MODULE_7__[\"boxCallBack\"],\n});\n\n//# sourceURL=webpack:///./src/js/index.js?");
 
 /***/ }),
 
-/***/ "./src/js/minimax.js":
-/*!***************************!*\
-  !*** ./src/js/minimax.js ***!
-  \***************************/
+/***/ "./src/js/lib/minimax.js":
+/*!*******************************!*\
+  !*** ./src/js/lib/minimax.js ***!
+  \*******************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst minimax = (game, player) => {\n  const {\n    board,\n    human,\n    computer,\n  } = game;\n  const availableSpots = board.emptySquares();\n  if (game.checkWin(human)) {\n    return {\n      score: -10,\n    };\n  }\n  if (game.checkWin(computer)) {\n    return {\n      score: 10,\n    };\n  }\n  if (availableSpots.length === 0) {\n    return {\n      score: 0,\n    };\n  }\n\n  const moves = [];\n\n  availableSpots.forEach((spot) => {\n    const move = {};\n    move.index = board.grid[spot];\n    player.moves.push(board.grid[spot]);\n    board.grid[spot] = player.sign;\n    let result;\n    if (player === computer) {\n      result = minimax(game, human);\n    } else if (player === human) {\n      result = minimax(game, computer);\n    }\n\n    move.score = result.score;\n\n    board.grid[spot] = move.index;\n    player.moves.pop();\n    moves.push(move);\n  });\n  let best;\n  if (player === computer) {\n    // eslint-disable-next-line prefer-destructuring\n    best = moves.sort((a, b) => b.score - a.score)[0];\n    // eslint-disable-next-line prefer-destructuring\n  } else if (player === human) {\n    // eslint-disable-next-line prefer-destructuring\n    best = moves.sort((a, b) => a.score - b.score)[0];\n  }\n  return best;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (minimax);\n\n//# sourceURL=webpack:///./src/js/minimax.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst minimax = (game, player) => {\n  const {\n    board,\n    human,\n    computer,\n  } = game;\n  const availableSpots = board.emptySquares();\n  if (game.checkWin(human)) {\n    return {\n      score: -10,\n    };\n  }\n  if (game.checkWin(computer)) {\n    return {\n      score: 10,\n    };\n  }\n  if (availableSpots.length === 0) {\n    return {\n      score: 0,\n    };\n  }\n\n  const moves = [];\n\n  availableSpots.forEach((spot) => {\n    const move = {};\n    move.index = board.grid[spot];\n    player.moves.push(board.grid[spot]);\n    board.grid[spot] = player.sign;\n    let result;\n    if (player === computer) {\n      result = minimax(game, human);\n    } else if (player === human) {\n      result = minimax(game, computer);\n    }\n\n    move.score = result.score;\n\n    board.grid[spot] = move.index;\n    player.moves.pop();\n    moves.push(move);\n  });\n  let best;\n  if (player === computer) {\n    // eslint-disable-next-line prefer-destructuring\n    best = moves.sort((a, b) => b.score - a.score)[0];\n    // eslint-disable-next-line prefer-destructuring\n  } else if (player === human) {\n    // eslint-disable-next-line prefer-destructuring\n    best = moves.sort((a, b) => a.score - b.score)[0];\n  }\n  return best;\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (minimax);\n\n//# sourceURL=webpack:///./src/js/lib/minimax.js?");
 
 /***/ }),
 
-/***/ "./src/js/mixins.js":
-/*!**************************!*\
-  !*** ./src/js/mixins.js ***!
-  \**************************/
+/***/ "./src/js/utils/callbacks.js":
+/*!***********************************!*\
+  !*** ./src/js/utils/callbacks.js ***!
+  \***********************************/
+/*! exports provided: addBoxListeners, removeListeners, boxCallBack */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"addBoxListeners\", function() { return addBoxListeners; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"removeListeners\", function() { return removeListeners; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"boxCallBack\", function() { return boxCallBack; });\nfunction addBoxListeners(listenerArgs) {\n  const {\n    game,\n    cells,\n    level,\n    callBack\n  } = listenerArgs;\n\n  cells.forEach(cell => cell.addEventListener('click', callBack({\n    game,\n    cells,\n    level,\n  }), {\n    once: true,\n  }));\n}\n\nfunction removeListeners(listenerArgs) {\n  const {\n    game,\n    cells,\n    level,\n    callBack,\n  } = listenerArgs;\n\n  cells.forEach(cell => cell.removeEventListener('click', callBack({\n    game,\n    cells,\n    level,\n  }), {\n    once: true,\n  }));\n\n}\n\nfunction boxCallBack(callBackArgs, e) {\n  const {\n    game,\n    cells,\n    level,\n  } = callBackArgs;\n  return innerCallBack\n}\n\nfunction innerCallBack(e) {\n  e.stopPropagation();\n  console.log(e);\n}\n\n\n\n//# sourceURL=webpack:///./src/js/utils/callbacks.js?");
+
+/***/ }),
+
+/***/ "./src/js/utils/domUtils.js":
+/*!**********************************!*\
+  !*** ./src/js/utils/domUtils.js ***!
+  \**********************************/
+/*! exports provided: gameBoardDisplay */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"gameBoardDisplay\", function() { return gameBoardDisplay; });\nconst gameBoardDisplay = () => {\n  const mainGameBoard = document.getElementById('mainBoard');\n\n  for (let i = 0, j = 0; i < 3; i += 1, j += 3) {\n    const tr = document.createElement('tr');\n    for (let k = 0; k < 3; k += 1) {\n      const td = document.createElement('td');\n      td.setAttribute('class', 'cell');\n      td.setAttribute('id', j + k);\n      tr.appendChild(td);\n    }\n    mainGameBoard.appendChild(tr);\n  };\n  return mainGameBoard;\n}\n\n\n\n//# sourceURL=webpack:///./src/js/utils/domUtils.js?");
+
+/***/ }),
+
+/***/ "./src/js/utils/mixins.js":
+/*!********************************!*\
+  !*** ./src/js/utils/mixins.js ***!
+  \********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst mixin = (() => ({\n  makeChoice(game, level, intelligentFn) {\n    return level === \"easy\" ? this.board.emptySquares()[0] : intelligentFn(game, this).index;\n  },\n}))();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (mixin);\n\n//# sourceURL=webpack:///./src/js/mixins.js?");
-
-/***/ }),
-
-/***/ "./src/js/player.js":
-/*!**************************!*\
-  !*** ./src/js/player.js ***!
-  \**************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nconst Player = playerArgs => ({\n  name: playerArgs.name,\n  sign: playerArgs.sign,\n  board: playerArgs.board,\n  moves: [],\n  turn(index) {\n    this.moves.push(index);\n    this.board.receiveChoice(index, this);\n  },\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Player);\n\n//# sourceURL=webpack:///./src/js/player.js?");
+eval("__webpack_require__.r(__webpack_exports__);\nconst mixin = (() => ({\n  makeChoice(game, level, intelligentFn) {\n    return level === \"easy\" ? this.board.emptySquares()[0] : intelligentFn(game, this).index;\n  },\n}))();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (mixin);\n\n//# sourceURL=webpack:///./src/js/utils/mixins.js?");
 
 /***/ })
 

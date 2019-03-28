@@ -1,27 +1,13 @@
 const Game = (gameArgs) => {
   const {
-    gameBoardFactory,
-    playerFactory,
-    mixin,
+    board,
+    human,
+    computer,
     aiFn,
   } = gameArgs;
-  const name = prompt(`What's your name? `);
-  const board = gameBoardFactory();
-  const human = playerFactory({
-    name,
-    board,
-    sign: 'X',
-  });
-  const computer = Object.assign(playerFactory({
-    board,
-    name: 'Computer',
-    sign: 'O',
-  }), {
-    makeChoice: mixin.makeChoice,
-  });
 
   function turn(humanChoice, level) {
-    this.human.turn(humanChoice);
+    if (!this.endGame()) this.human.turn(humanChoice);
     if (!this.endGame()) {
       const computerChoice = this.computer.makeChoice(this, level, aiFn);
       this.computer.turn(computerChoice);

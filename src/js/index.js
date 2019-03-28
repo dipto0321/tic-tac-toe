@@ -1,28 +1,58 @@
 import '../css/style.css';
-import GameBoard from './gameBoard';
-import Player from './player';
-import mixin from './mixins';
-import Game from './game';
-import minimax from './minimax';
+import GameBoard from './factories/gameBoard';
+import Player from './factories/player';
+import mixin from './utils/mixins';
+import Game from './factories/game';
+import minimax from './lib/minimax';
+import {
+  gameBoardDisplay,
+} from './utils/domUtils';
+import {
+  addBoxListeners,
+  removeListeners,
+  boxCallBack,
+} from './utils/callbacks';
 
-const game = Game({
-  gameBoardFactory: GameBoard,
-  playerFactory: Player,
-  aiFn: minimax,
-  mixin,
+// const name = prompt(`What's your name? `);
+const name = "Ryan";
+
+const board = GameBoard();
+
+const human = Player({
+  name,
+  board,
+  sign: 'X',
 });
 
-const level = 'hard';
+const computer = Object.assign(Player({
+  board,
+  name: 'Computer',
+  sign: 'O',
+}), {
+  makeChoice: mixin.makeChoice,
+});
 
-const mainGameBoard = document.getElementById('mainBoard');
+const game = Game({
+  board,
+  human,
+  computer,
+  aiFn: minimax,
+});
 
-for (let i = 0, j = 0; i < 3; i += 1, j += 3) {
-  const tr = document.createElement('tr');
-  for (let k = 0; k < 3; k += 1) {
-    const td = document.createElement('td');
-    td.setAttribute('class', 'cell');
-    td.setAttribute('id', j + k);
-    tr.appendChild(td);
-  }
-  mainGameBoard.appendChild(tr);
-};
+const level = 'easy';
+
+document.body.appendChild(gameBoardDisplay());
+
+addBoxListeners({
+  game,
+  cells: [...document.getElementsByClassName('cell')],
+  level,
+  callBack: boxCallBack,
+});
+
+removeListeners({
+  game,
+  cells: [...document.getElementsByClassName('cell')],
+  level,
+  callBack: boxCallBack,
+});
