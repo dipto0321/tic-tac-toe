@@ -38,15 +38,13 @@ const game = Game({
   board,
   human,
   computer,
+  level,
   aiFn: minimax,
 });
 
 document.body.appendChild(gameBoardDisplay());
 
-game.handler = clickHandler().bind(window, {
-  game,
-  level,
-});
+game.handler = clickHandler().bind(window, game);
 
 addListenerToBoxes('click', 'cell', game.handler);
 // removeListenerFromBoxes('click', 'cell', game.handler);

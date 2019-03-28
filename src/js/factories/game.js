@@ -3,13 +3,14 @@ const Game = (gameArgs) => {
     board,
     human,
     computer,
+    level,
     aiFn,
   } = gameArgs;
 
-  function turn(humanChoice, level) {
+  function turn(humanChoice) {
     if (!this.endGame()) this.human.turn(humanChoice);
     if (!this.endGame()) {
-      const computerChoice = this.computer.makeChoice(this, level, aiFn);
+      const computerChoice = this.computer.makeChoice(this, this.level, aiFn);
       this.computer.turn(computerChoice);
       return computerChoice;
     }
@@ -26,6 +27,7 @@ const Game = (gameArgs) => {
   }
 
   return {
+    level,
     human,
     computer,
     board,
