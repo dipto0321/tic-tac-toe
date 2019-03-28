@@ -8,9 +8,9 @@ import {
   gameBoardDisplay,
 } from './utils/domUtils';
 import {
-  addBoxListeners,
-  removeListeners,
-  boxCallBack,
+  clickHandler,
+  addListenerToBoxes,
+  removeListenerFromBoxes,
 } from './utils/callbacks';
 
 // const name = prompt(`What's your name? `);
@@ -32,6 +32,8 @@ const computer = Object.assign(Player({
   makeChoice: mixin.makeChoice,
 });
 
+const level = 'hard';
+
 const game = Game({
   board,
   human,
@@ -39,20 +41,12 @@ const game = Game({
   aiFn: minimax,
 });
 
-const level = 'easy';
-
 document.body.appendChild(gameBoardDisplay());
 
-addBoxListeners({
+game.handler = clickHandler().bind(window, {
   game,
-  cells: [...document.getElementsByClassName('cell')],
   level,
-  callBack: boxCallBack,
 });
 
-removeListeners({
-  game,
-  cells: [...document.getElementsByClassName('cell')],
-  level,
-  callBack: boxCallBack,
-});
+addListenerToBoxes('click', 'cell', game.handler);
+// removeListenerFromBoxes('click', 'cell', game.handler);

@@ -1,54 +1,31 @@
-function addBoxListeners(listenerArgs) {
-  const {
-    game,
-    cells,
-    level,
-    callBack
-  } = listenerArgs;
+const clickHandler = (e) => {
+  return function innerFunction(args, e) {
+    const {
+      game,
+      level,
+    } = args;
+    const humanChoice = Number(e.target.id);
+    const computerChoice = game.turn(humanChoice, level);
+    e.target.innerText = game.board.grid[humanChoice];
+    document.getElementById(computerChoice).innerText = game.board.grid[computerChoice];
+    document.getElementById(computerChoice).removeEventListener('click', game.handler);
+  };
+};
 
-  cells.forEach(cell => cell.addEventListener('click', callBack({
-    game,
-    cells,
-    level,
-  }), {
+const addListenerToBoxes = (e, collection, callBack) => {
+  const boxes = [...document.getElementsByClassName(collection)];
+  boxes.forEach(box => box.addEventListener(e, callBack, {
     once: true,
   }));
-}
+};
 
-function removeListeners(listenerArgs) {
-  const {
-    game,
-    cells,
-    level,
-    callBack,
-  } = listenerArgs;
-
-  cells.forEach(cell => cell.removeEventListener('click', callBack({
-    game,
-    cells,
-    level,
-  }), {
-    once: true,
-  }));
-
-}
-
-function boxCallBack(callBackArgs, e) {
-  const {
-    game,
-    cells,
-    level,
-  } = callBackArgs;
-  return innerCallBack
-}
-
-function innerCallBack(e) {
-  e.stopPropagation();
-  console.log(e);
-}
+const removeListenerFromBoxes = (e, collection, callBack) => {
+  const boxes = [...document.getElementsByClassName(collection)];
+  boxes.forEach(box => box.removeEventListener(e, callBack));
+};
 
 export {
-  addBoxListeners,
-  removeListeners,
-  boxCallBack,
+  clickHandler,
+  addListenerToBoxes,
+  removeListenerFromBoxes,
 };
