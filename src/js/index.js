@@ -11,39 +11,27 @@ import {
   clickHandler,
   addListenerToBoxes,
 } from './utils/callbacks';
+import newGame from './utils/gameModule';
 
 // const name = prompt(`What's your name? `);
 const name = "Ryan";
 
-const board = GameBoard();
+const level = document.getElementById('level').value;
 
-const human = Player({
+const game = newGame({
   name,
-  board,
-  sign: 'X',
-});
-
-const computer = Object.assign(Player({
-  board,
-  name: 'Computer',
-  sign: 'O',
-}), {
-  makeChoice: mixin.makeChoice,
-});
-
-const level = 'hard';
-
-const game = Game({
-  board,
-  human,
-  computer,
   level,
+  mixin,
+  boardFactory: GameBoard,
+  playerFactory: Player,
+  gameFactory: Game,
   aiFn: minimax,
 });
+
+console.log(game);
 
 document.body.appendChild(gameBoardDisplay());
 
 game.handler = clickHandler().bind(window, game);
 
 addListenerToBoxes('click', 'cell', game.handler);
-// removeListenerFromBoxes('click', 'cell', game.handler);

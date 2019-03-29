@@ -13,7 +13,7 @@ function clickHandler() {
       showEndGameDiv(game);
     }
   };
-};
+}
 
 function showEndGameDiv(game) {
   const winner = game.checkWin(game.human) ? game.human.name : 'Computer';
@@ -31,12 +31,12 @@ function addListenerToBoxes(e, collection, callBack) {
   boxes.forEach(box => box.addEventListener(e, callBack, {
     once: true,
   }));
-};
+}
 
 function removeListenerFromBoxes(e, collection, callBack) {
   const boxes = [...document.getElementsByClassName(collection)];
   boxes.forEach(box => box.removeEventListener(e, callBack));
-};
+}
 
 export {
   clickHandler,
