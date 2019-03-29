@@ -1,31 +1,29 @@
-import '../css/style.css';
+import "../css/style.css";
 
-import GameBoard from './factories/gameBoard';
+import GameBoard from "./factories/gameBoard";
 
-import Player from './factories/player';
+import Player from "./factories/player";
 
-import mixin from './utils/mixins';
+import mixin from "./utils/mixins";
 
-import Game from './factories/game';
+import Game from "./factories/game";
 
-import minimax from './lib/minimax';
+import minimax from "./lib/minimax";
 
-import {
-  gameBoardDisplay,
-} from './utils/domUtils';
+import { gameBoardDisplay } from "./utils/gameDisplay";
 
 import {
   clickHandler,
   addListenerToBoxes,
   resetGame,
-  levelSelection,
-} from './utils/callbacks';
+  levelSelection
+} from "./utils/callbacks";
 
-import newGame from './utils/gameModule';
+import newGame from "./utils/gameModule";
 
 const name = prompt(`What's your name? `);
 
-const level = document.getElementById('level').value;
+const level = document.getElementById("level").value;
 
 const game = newGame({
   name,
@@ -34,16 +32,16 @@ const game = newGame({
   boardFactory: GameBoard,
   playerFactory: Player,
   gameFactory: Game,
-  aiFn: minimax,
+  aiFn: minimax
 });
 
 document.body.appendChild(gameBoardDisplay());
 
 game.handler = clickHandler().bind(window, game);
 
-addListenerToBoxes('click', 'cell', game.handler);
+addListenerToBoxes("click", "cell", game.handler);
 
-document.getElementById('reset').addEventListener('click', () => {
+document.getElementById("reset").addEventListener("click", () => {
   resetGame({
     newGame,
     name,
@@ -54,11 +52,11 @@ document.getElementById('reset').addEventListener('click', () => {
     boardFactory: GameBoard,
     playerFactory: Player,
     gameFactory: Game,
-    aiFn: minimax,
-  })
+    aiFn: minimax
+  });
 });
 
-document.getElementById('level').addEventListener('change', () => {
+document.getElementById("level").addEventListener("change", () => {
   levelSelection(resetGame, {
     newGame,
     name,
@@ -70,6 +68,6 @@ document.getElementById('level').addEventListener('change', () => {
     boardFactory: GameBoard,
     playerFactory: Player,
     gameFactory: Game,
-    aiFn: minimax,
+    aiFn: minimax
   });
 });
