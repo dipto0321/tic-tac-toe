@@ -36,7 +36,6 @@ function resetGame(newGameArgs) {
     gameBoardDisplayFn,
     listenerToBoxes,
     name,
-    level,
     mixin,
     handler,
     boardFactory,
@@ -46,7 +45,7 @@ function resetGame(newGameArgs) {
   } = newGameArgs;
   const game = newGame({
     name,
-    level,
+    level: document.getElementById('level').value,
     mixin,
     boardFactory,
     playerFactory,

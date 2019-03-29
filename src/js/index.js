@@ -47,7 +47,6 @@ document.getElementById('reset').addEventListener('click', () => {
   resetGame({
     newGame,
     name,
-    level,
     mixin,
     gameBoardDisplayFn: gameBoardDisplay,
     listenerToBoxes: addListenerToBoxes,
