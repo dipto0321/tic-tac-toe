@@ -1,4 +1,4 @@
-const minimax = (game, player) => {
+const minimaxProcessor = (game, player) => {
   const {
     board,
     human,
@@ -30,9 +30,9 @@ const minimax = (game, player) => {
     board.grid[spot] = player.sign;
     let result;
     if (player === computer) {
-      result = minimax(game, human);
+      result = minimaxProcessor(game, human);
     } else if (player === human) {
-      result = minimax(game, computer);
+      result = minimaxProcessor(game, computer);
     }
 
     move.score = result.score;
@@ -52,5 +52,7 @@ const minimax = (game, player) => {
   }
   return best;
 };
+
+const minimax = (game, player) => minimaxProcessor(game, player).index;
 
 export default minimax;
