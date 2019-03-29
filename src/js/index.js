@@ -10,7 +10,6 @@ import {
 import {
   clickHandler,
   addListenerToBoxes,
-  removeListenerFromBoxes,
 } from './utils/callbacks';
 
 // const name = prompt(`What's your name? `);
