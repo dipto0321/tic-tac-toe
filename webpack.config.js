@@ -9,6 +9,7 @@ module.exports = {
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
   },
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
