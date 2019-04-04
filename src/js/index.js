@@ -1,80 +1,29 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import '../css/style.scss';
 
-import React from 'react';
-
-import ReactDOM from 'react-dom';
-
-import GameBoard from './factories/gameBoard';
-
-import Player from './factories/player';
-
-import mixin from './utils/mixins';
-
-import Game from './factories/game';
-
-import minimax from './lib/minimax';
-
-import { gameBoardDisplay } from './utils/gameDisplay';
-
-import { clickHandler, addListenerToBoxes, resetGame, levelSelection } from './utils/callbacks';
-
-import newGame from './utils/gameModule';
-
-const name = prompt("What's your name? ");
-
-const level = document.getElementById('level').value;
-
-const game = newGame({
-  name,
-  level,
-  mixin,
-  boardFactory: GameBoard,
-  playerFactory: Player,
-  gameFactory: Game,
-  aiFn: minimax,
-});
-
-document.body.appendChild(gameBoardDisplay());
-
-game.handler = clickHandler().bind(window, game);
-
-addListenerToBoxes('click', 'cell', game.handler);
-
-document.getElementById('reset').addEventListener('click', () => {
-  resetGame({
-    newGame,
-    name,
-    mixin,
-    gameBoardDisplayFn: gameBoardDisplay,
-    listenerToBoxes: addListenerToBoxes,
-    handler: clickHandler,
-    boardFactory: GameBoard,
-    playerFactory: Player,
-    gameFactory: Game,
-    aiFn: minimax,
-  });
-});
-
-document.getElementById('level').addEventListener('change', () => {
-  levelSelection(resetGame, {
-    newGame,
-    name,
-    level,
-    mixin,
-    gameBoardDisplayFn: gameBoardDisplay,
-    listenerToBoxes: addListenerToBoxes,
-    handler: clickHandler,
-    boardFactory: GameBoard,
-    playerFactory: Player,
-    gameFactory: Game,
-    aiFn: minimax,
-  });
-});
-
-const template = (
-  <div>
-    <p>React is working</p>
-  </div>
+const Board = () => (
+  <table id="mainBoard">
+    <tbody>
+      <tr>
+        <Box id={0} />
+        <Box id={1} />
+        <Box id={2} />
+      </tr>
+      <tr>
+        <Box id={3} />
+        <Box id={4} />
+        <Box id={5} />
+      </tr>
+      <tr>
+        <Box id={6} />
+        <Box id={7} />
+        <Box id={8} />
+      </tr>
+    </tbody>
+  </table>
 );
 
-ReactDOM.render(template, document.getElementById('app'));
+const Box = props => <td className="cell" id={props.id} />;
+
+ReactDOM.render(<Board />, document.getElementById('app'));
