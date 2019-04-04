@@ -1,29 +1,28 @@
-import "../css/style.css";
+import '../css/style.scss';
 
-import GameBoard from "./factories/gameBoard";
+import React from 'react';
 
-import Player from "./factories/player";
+import ReactDOM from 'react-dom';
 
-import mixin from "./utils/mixins";
+import GameBoard from './factories/gameBoard';
 
-import Game from "./factories/game";
+import Player from './factories/player';
 
-import minimax from "./lib/minimax";
+import mixin from './utils/mixins';
 
-import { gameBoardDisplay } from "./utils/gameDisplay";
+import Game from './factories/game';
 
-import {
-  clickHandler,
-  addListenerToBoxes,
-  resetGame,
-  levelSelection
-} from "./utils/callbacks";
+import minimax from './lib/minimax';
 
-import newGame from "./utils/gameModule";
+import { gameBoardDisplay } from './utils/gameDisplay';
 
-const name = prompt(`What's your name? `);
+import { clickHandler, addListenerToBoxes, resetGame, levelSelection } from './utils/callbacks';
 
-const level = document.getElementById("level").value;
+import newGame from './utils/gameModule';
+
+const name = prompt("What's your name? ");
+
+const level = document.getElementById('level').value;
 
 const game = newGame({
   name,
@@ -32,16 +31,16 @@ const game = newGame({
   boardFactory: GameBoard,
   playerFactory: Player,
   gameFactory: Game,
-  aiFn: minimax
+  aiFn: minimax,
 });
 
 document.body.appendChild(gameBoardDisplay());
 
 game.handler = clickHandler().bind(window, game);
 
-addListenerToBoxes("click", "cell", game.handler);
+addListenerToBoxes('click', 'cell', game.handler);
 
-document.getElementById("reset").addEventListener("click", () => {
+document.getElementById('reset').addEventListener('click', () => {
   resetGame({
     newGame,
     name,
@@ -52,11 +51,11 @@ document.getElementById("reset").addEventListener("click", () => {
     boardFactory: GameBoard,
     playerFactory: Player,
     gameFactory: Game,
-    aiFn: minimax
+    aiFn: minimax,
   });
 });
 
-document.getElementById("level").addEventListener("change", () => {
+document.getElementById('level').addEventListener('change', () => {
   levelSelection(resetGame, {
     newGame,
     name,
@@ -68,6 +67,14 @@ document.getElementById("level").addEventListener("change", () => {
     boardFactory: GameBoard,
     playerFactory: Player,
     gameFactory: Game,
-    aiFn: minimax
+    aiFn: minimax,
   });
 });
+
+const template = (
+  <div>
+    <p>React is working</p>
+  </div>
+);
+
+ReactDOM.render(template, document.getElementById('app'));

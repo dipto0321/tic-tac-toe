@@ -7,12 +7,22 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   devServer: {
-    contentBase: './dist',
+    contentBase: path.resolve(__dirname, 'dist'),
   },
   module: {
-    rules: [{
-      test: /\.css$/,
-      loader: ['style-loader', 'css-loader'],
-    }],
+    rules: [
+      {
+        test: /\.s?css$/,
+        loader: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env', '@babel/preset-react'],
+        },
+      },
+    ],
   },
 };
