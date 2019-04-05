@@ -2,13 +2,14 @@ import React from 'react';
 import Board from './Board';
 import ResetButton from './ResetButton';
 import LevelSelect from './LevelSelect';
-
+import EndGame from './EndGame';
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       board: this.props.game.board.grid.map(el => typeof el === 'number' ? null : el),
       level: this.props.game.level,
+      gameOver: false,
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -19,6 +20,9 @@ export default class Game extends React.Component {
     this.setState(()=>({
       board: game.board.grid.map((el) => typeof el === 'number' ? null : el )
     }));
+    if(game.endGame()){
+      this.setState(()=>({gameOver: true}));
+    }
   }
   handleResetBtn(){
     console.log("Reset");
@@ -29,6 +33,7 @@ export default class Game extends React.Component {
   render() {
     return (
       <div>
+        <EndGame gameOver={this.state.gameOver}/>
         <div id="game-controls">
           <ResetButton handleResetBtn={this.handleResetBtn} />
           <LevelSelect handleLevelChange={this.handleLevelChange} />
