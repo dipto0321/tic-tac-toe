@@ -2,7 +2,7 @@ import React from 'react';
 import Box from './Box';
 
 export default props => {
-  const renderBox = id => <Box id={id} handleClick={props.handleClick} />;
+  const renderBox = id => <Box id={id} handleClick={props.handleClick} value={props.board[id]}/>;
   return (
     <table id="mainBoard">
       <tbody>

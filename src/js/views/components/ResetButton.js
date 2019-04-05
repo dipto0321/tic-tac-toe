@@ -1,3 +1,3 @@
 import React from 'react';
 
-export default () => <button id="reset">Replay</button>;
+export default (props) => <button id="reset" onClick={props.handleResetBtn}>Replay</button>;
