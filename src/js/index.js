@@ -11,6 +11,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Game from './views/components/Game';
 import '../css/style.scss';
+import Board from "./views/components/Board";
+
+const name = "Ryan";
 
 const game = newGame({
   name,

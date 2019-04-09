@@ -6,23 +6,15 @@ import EndGame from './EndGame';
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
+    const game = Object.assign({}, this.props.game);
     this.state = {
       board: this.props.game.board.grid.map(el => typeof el === 'number' ? null : el),
-      level: this.props.game.level,
       gameOver: false,
     };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(e) {
-    const game = this.props.game;
-    const humanChoice = Number(e.target.id);
-    const computerChoice = game.turn(humanChoice);
-    this.setState(()=>({
-      board: game.board.grid.map((el) => typeof el === 'number' ? null : el )
-    }));
-    if(game.endGame()){
-      this.setState(()=>({gameOver: true}));
-    }
+    console.log(e.target.id);
   }
   handleResetBtn(){
     console.log("Reset");
