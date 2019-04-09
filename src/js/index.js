@@ -11,9 +11,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Game from './views/components/Game';
 import '../css/style.scss';
-import Board from "./views/components/Board";
 
-const name = "Ryan";
+const name = prompt("What's your name?");
 
 const game = newGame({
   name,
@@ -25,4 +24,12 @@ const game = newGame({
   aiFn: minimax
 });
 
-ReactDOM.render(<Game game={game} />, document.getElementById('app'));
+ReactDOM.render(<Game
+  boardFactory={GameBoard}
+  playerFactory={Player}
+  gameFactory={GameObj}
+  newGame={newGame}
+  mixin={mixin}
+  aiFn={minimax}
+  name = {name}
+  />, document.getElementById('app'));
