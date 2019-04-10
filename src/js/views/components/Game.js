@@ -49,11 +49,13 @@ export default class Game extends React.Component {
   handleClick(e) {
     const game = this.state.game;
     const humanChoice = Number(e.target.id);
-    game.turn(humanChoice);
     const grid = game.board.grid;
-    this.setState(()=>({
-      board: grid.map(el => typeof el === 'number' ? null : el)
-    }));
+    if(typeof grid[humanChoice] === 'number'){
+      game.turn(humanChoice);
+      this.setState(()=>({
+        board: grid.map(el => typeof el === 'number' ? null : el)
+      }));
+    }
     if(game.endGame()){
       const winner = game.board.emptySquares().length === 0 ? null : (game.checkWin(game.human) ? game.human.name : game.computer.name);
       this.setState(()=>({
