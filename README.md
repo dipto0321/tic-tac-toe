@@ -15,8 +15,6 @@
   - [Contributing](#contributing)
   - [License](#license)
 
-## Background
-
 ## Install
 
 ```
