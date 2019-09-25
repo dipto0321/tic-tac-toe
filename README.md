@@ -15,6 +15,11 @@
   - [Contributing](#contributing)
   - [License](#license)
 
+## Background
+We used pure vanilla javascript and object-oriented methodologies. There are two modes one is easy and the other is hard.
+  - Easy: In this mode computer play through random input. User can easily defeat the computer.
+  - Hard: In this mode computer use Minmax algorithm to make his turn in the board. So it's an unbeatable approach. User can draw but can't defeat the computer.
+
 ## Install
 
 ```
